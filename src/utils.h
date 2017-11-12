@@ -15,7 +15,6 @@ Eigen::VectorXd convertFromPolarToCartesian(const MeasurementPackage &measuremen
 
   double ro = measurements.raw_measurements_(0);
   double theta = measurements.raw_measurements_(1);
-  double ro_dot = measurements.raw_measurements_(2);
 
   const double tan_of_theta = std::tan(theta);
   double p_x = std::sqrt(ro*ro / (1 + tan_of_theta*tan_of_theta));
