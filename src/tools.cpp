@@ -40,4 +40,24 @@ MatrixXd Tools::CalculateJacobian(const VectorXd& x_state) {
   TODO:
     * Calculate a Jacobian here.
   */
+  MatrixXd Hj(3, 4);
+  double p_x = x_state(0);
+  double p_y = x_state(1);
+  double v_x = x_state(2);
+  double v_y = x_state(3);
+
+  double c_1 = p_x*p_x + p_y*p_y;
+  double c_2 = sqrt(c_1);
+  double c_3 = (c_1*c_2);
+
+  if (fabs(c_1) < 0.0001) {
+    std::cout << "CalculateJacobian () - Error - Division by Zero" << endl;
+    return Hj;
+  }
+
+  Hj << p_x/c_2, p_y/c_2, 0, 0,
+         -p_y/c_1, p_x/c_1, 0, 0,
+         p_y * (v_x*p_y - v_y*p_x) / c_3, p_x * (p_x*v_y - p_y*v_x) / c_3, p_x/c_2, p_y/c_2;
+
+  return Hj;
 }
