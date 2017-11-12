@@ -57,16 +57,6 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
 
   double ro = std::sqrt(x_(0)*x_(0) + x_(1)*x_(1));
   double theta = std::atan(x_(1)/x_(0));
-  const double PI = 2*std::acos(0.0);
-
-  while (theta > PI || theta < -PI) {
-    if (theta > PI) {
-      theta -= 2*PI;
-    } else {
-      theta += 2*PI;
-    }
-  }
-
   double ro_dot = (x_(0)*x_(2) + x_(1)*x_(3)) / ro;
 
   polar_coords << ro, theta, ro_dot;
